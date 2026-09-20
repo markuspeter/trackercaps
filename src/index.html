@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+  Mixed-Color Keycap Compositor - interactive GUI (Phase 2 rewrite).
+
+  Pick a pattern (fixed mapping of keycap position -> palette slot, from
+  data/patterns.json), drag one of the 7 real photographed colors onto each palette
+  slot, and the <canvas> composites assets/background.png + the matching tiles
+  (positioned per data/manifest.json's bbox+shift) live. Undo/redo history,
+  session-only favorites, and "Download PNG" round out the toolset.
+
+  This is a real ES-module rewrite of ../gui/index.html (which stays as the original,
+  file://-opened, zero-server, zero-build app - see ../CLAUDE.md and the project's
+  plan history for why both exist side by side). This version is served over
+  http(s):// instead of file://, which is what unlocks:
+  - <script type="module">, used for every script here.
+  - fetch() of local .json files - data/manifest.json and data/patterns.json are
+    loaded directly via fetch() in js/data.js, no `window.X = {...}` wrapper needed.
+  - real image files instead of base64 data URIs - assets/background.png and all 56
+    assets/tiles/*.png files are loaded by path and drawn straight to <canvas>; under
+    file:// this would taint the canvas, but same-origin http(s):// serving does not.
+
+  Run `npm run dev` (scripts/dev-server.js) to serve this directory locally, or
+  `npm run build` (scripts/build.js) to bundle it into dist/ for publishing.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Trackercaps</title>
+<link rel="icon" type="image/svg+xml" href="./assets/icon.svg">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+	<header class="page-header">
+		<h1><img src="./assets/icon.svg" alt="" class="header-icon"> Trackercaps</h1>
+	</header>
+	<div class="app">
+		<aside class="sidebar">
+			<section class="card">
+				<h2>Palette slots</h2>
+				<div class="tray" id="slotTray"></div>
+			</section>
+
+			<section class="card">
+				<h2>Colors</h2>
+				<div class="tray" id="swatchTray"></div>
+			</section>
+
+			<section class="card">
+				<h2>Favorites</h2>
+				<div class="favorites-list" id="favoritesList"></div>
+				<button id="addFavoriteBtn" class="btn btn-full">★ Add current to favorites</button>
+			</section>
+		</aside>
+
+		<main class="main">
+			<section class="card pattern-grid-card">
+				<h2>Pattern</h2>
+				<div class="pattern-grid" id="patternGrid"></div>
+				<p class="desc" id="patternDesc"></p>
+			</section>
+
+			<div class="toolbar" id="toolbar">
+				<button id="backBtn" class="btn history-btn" title="Back"></button>
+				<button id="randomizeBtn" class="btn">Randomize</button>
+				<button id="forwardBtn" class="btn history-btn" title="Forward"></button>
+			</div>
+			<span class="status" id="status"></span>
+
+			<div class="canvas-card">
+				<canvas id="canvas"></canvas>
+			</div>
+
+			<button id="downloadBtn" class="btn btn-primary" disabled>⭳ Download PNG</button>
+		</main>
+	</div>
+
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>

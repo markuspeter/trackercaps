@@ -1,0 +1,58 @@
+{
+  "_comment": "Hand-authored pattern config for the mixed-color keycap compositor (Phase 2 GUI). Never touched by the Phase 1 extraction script. Schema: positions/availableColors are just references (must match masks\\*.png / the 7 source photo names); each pattern maps every position to a palette-slot index in [0, numColors). At composite time the GUI assigns one of the availableColors to each slot index and paints position P with the tile for (P, colorAssignedToSlot[keys[P]]).",
+
+  "positions": ["down", "edit", "left", "option", "play", "right", "shift", "up"],
+  "availableColors": ["pastel-magenta", "arctic-blue", "cream-yellow", "pastel-violet", "ocean-blue", "cool-gray", "red"],
+
+  "patterns": [
+    {
+      "id": "rows",
+      "name": "Rows",
+      "description": "Three-tone split by physical row on the board: top row (edit/option/up), middle row (left/down/right), bottom row (shift/play).",
+      "numColors": 3,
+      "keys": { "edit": 0, "option": 0, "up": 0, "left": 1, "down": 1, "right": 1, "shift": 2, "play": 2 }
+    },
+    {
+      "id": "columns",
+      "name": "Columns",
+      "description": "Four-tone split by physical column on the board: left (left), center-left (up/down/shift), center-right (option/right/play), right (edit).",
+      "numColors": 4,
+      "keys": { "left": 0, "up": 1, "down": 1, "shift": 1, "option": 2, "right": 2, "play": 2, "edit": 3 }
+    },
+    {
+      "id": "rainbow",
+      "name": "Rainbow",
+      "description": "Four-tone pattern spreading colors across all 8 keys for maximum variety (no layout logic, just a fixed varied assignment).",
+      "numColors": 4,
+      "keys": { "down": 0, "edit": 1, "left": 2, "option": 3, "play": 0, "right": 1, "shift": 2, "up": 3 }
+    },
+    {
+      "id": "simple-navigator",
+      "name": "Blocks",
+      "description": "Three-tone: arrows (up/down/left/right) one color, option/edit another, play/shift another.",
+      "numColors": 3,
+      "keys": { "up": 0, "down": 0, "left": 0, "right": 0, "option": 1, "edit": 1, "play": 2, "shift": 2 }
+    },
+    {
+      "id": "navigator",
+      "name": "Navigator",
+      "description": "Three-tone: arrows (up/down/left/right) one color, option/shift another, play/edit another.",
+      "numColors": 3,
+      "keys": { "up": 0, "down": 0, "left": 0, "right": 0, "option": 1, "shift": 1, "play": 2, "edit": 2 }
+    },
+    {
+      "id": "commander",
+      "name": "Commander",
+      "description": "Four-tone: up/down one color, left/right another, shift/option another, play/edit another.",
+      "numColors": 4,
+      "keys": { "up": 0, "down": 0, "left": 1, "right": 1, "shift": 2, "option": 2, "play": 3, "edit": 3 }
+    },
+    {
+      "id": "pilot",
+      "name": "Pilot",
+      "description": "Four-tone: left/right one color, up/down another, option/edit another, shift/play another.",
+      "numColors": 4,
+      "keys": { "left": 0, "right": 0, "up": 1, "down": 1, "option": 2, "edit": 2, "shift": 3, "play": 3 }
+    }
+  ]
+}

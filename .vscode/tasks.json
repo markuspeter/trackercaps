@@ -1,0 +1,38 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build (src -> dist)",
+			"type": "npm",
+			"script": "build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [],
+			"detail": "Bundles src/ into dist/ via esbuild (scripts/build.js)"
+		},
+		{
+			"label": "Start Dev Server",
+			"type": "npm",
+			"script": "dev",
+			"isBackground": true,
+			"problemMatcher": {
+				"pattern": {
+					"regexp": "^never matches$"
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "^Dev server running",
+					"endsPattern": "^Dev server running"
+				}
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"close": false
+			},
+			"detail": "Serves src/ at http://localhost:8080/ (scripts/dev-server.js)"
+		}
+	]
+}
