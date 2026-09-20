@@ -21,3 +21,16 @@ Must be served over `http(s)://`, not opened via `file://`.
 
 See [`CLAUDE.md`](CLAUDE.md) for the full directory map, internals, and
 constraints.
+
+## Build & deploy
+
+Every push to `main` (including merged PRs) automatically:
+
+1. Builds `dist/` via `npm run build`.
+2. Tags a new release (`vX.Y.Z`, patch bump by default — include `(MINOR)`
+   or `(MAJOR)` in a commit message to bump those instead) and publishes it
+   as a GitHub Release with the built `dist/` attached as a zip.
+3. Deploys `dist/` to GitHub Pages.
+
+`package.json`'s `"version"` field is not updated automatically — git tags
+and GitHub Releases are the source of truth for the app's version.
